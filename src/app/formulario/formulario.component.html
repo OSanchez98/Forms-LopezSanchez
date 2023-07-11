@@ -1,0 +1,65 @@
+<form [formGroup]="formulario">
+    <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input type="text" class="form-control" id="nombre" formControlName="nombre" [class.is-invalid]="formulario.get('nombre')?.invalid  && formulario.get('nombre')?.touched">
+        <div *ngIf="formulario.get('nombre')?.invalid && formulario.get('nombre')?.touched"
+            class="invalid-feedback is-invalid">
+            <div *ngIf="formulario.get('nombre')?.hasError('required')">El nombre es requerido.</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="email" class="form-label">Email:</label>
+        <input type="email" class="form-control" id="email" formControlName="email"
+            [class.is-invalid]="formulario.get('email')?.invalid  && formulario.get('email')?.touched">
+        <div *ngIf="formulario.get('email')?.invalid && formulario.get('email')?.touched"
+            class="invalid-feedback is-invalid">
+            <div *ngIf="formulario.get('email')?.hasError('required')">El email es requerido.</div>
+            <div *ngIf="formulario.get('email')?.hasError('email')">El email no es válido.</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <label for="edad">Edad:</label>
+            <input type="number" class="form-control" id="edad" formControlName="edad" [class.is-invalid]="formulario.get('edad')?.invalid  && formulario.get('edad')?.touched">
+            <div *ngIf="formulario.get('edad')?.invalid && formulario.get('edad')?.touched"
+                class="invalid-feedback is-invalid">
+                <div *ngIf="formulario.get('edad')?.hasError('required')">La edad es requerida.</div>
+                <div *ngIf="formulario.get('edad')?.hasError('min')">La edad mínima permitida es 18.</div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="ciudad">Ciudad:</label>
+                <select class="form-control" id="ciudad" formControlName="ciudad">
+                    <option value="">Seleccionar</option>
+                    <option *ngFor="let opcion of opcionesCiudad" [value]="opcion.id">{{ opcion.nombre }}</option>
+                  </select>                  
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="form-group">
+        <label>Intereses:</label>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" formControlName="intereses" value="deporte">
+            <label class="form-check-label">Deporte</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" formControlName="intereses" value="arte">
+            <label class="form-check-label">Arte</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" formControlName="intereses" value="tecnologia">
+            <label class="form-check-label">Tecnología</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" formControlName="intereses" value="musica">
+            <label class="form-check-label">Musica</label>
+        </div>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary m-3" [disabled]="formulario.invalid">Enviar</button>
+    <button type="button" class="btn btn-secondary" (click)="limpiarFormulario()">Limpiar</button>
+</form>
